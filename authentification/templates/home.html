@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="content">
+<div align="center">
+    <h2>UberChat</h2>
+    <h3>Welcome {{ request.user.username }}</h3>
+</div>
+
+
+<div align="center">
+    {% if request.user.is_authenticated %}
+    <form id="post-form" method="POST" action="checkview">
+        {% csrf_token %}
+        <label id="room_name_txt">Room name</label>
+        <input type="text" name="room_name" id="room_name" width="100px" required="required"/>
+        <input type="hidden" name="username" value="{{ request.user.username }}" id="username" width="100px" />
+        <input type="submit" value="Enter Room" id="enter_room_button">
+
+    </form>
+    {% endif %}
+
+</div>
+</div>
+</body>
+<footer class="footer">
+    © ENSISA 2023
+</footer>
+<style>
+body {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px;
+  background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+}
+h2, h3{
+    color: white;
+    font-family : montserrat;
+      font-size: 30px;
+    }
+#room_name_txt{
+    color: white;
+    font-family : montserrat;
+}
+
+#room_name {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+#enter_room_button{
+  background-color: #8d99ae;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 11px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+.footer{
+    font-family : montserrat;
+    color: white;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    height:20px;
+
+    text-align: center;
+    font-size: 20px;
+}
+
+</style>
+</html>
