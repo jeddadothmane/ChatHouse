@@ -1,6 +1,3 @@
-#logo{
-
-}
 .header_buttons{
     text-align: center;
     background-color: #2596be;
@@ -43,7 +40,7 @@ h2{
 
 .darker {
     border-color: #000000;
-    background-color: #2596be;
+    background-color: #299abb;
 }
 
 .container::after {
@@ -65,9 +62,6 @@ h2{
     margin-left: 20px;
     margin-right:0;
 }
-
-
-
 .time {
     float: right;
     color: #000000;

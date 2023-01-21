@@ -1,30 +1,31 @@
 <!DOCTYPE html>
+
 <html>
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.css">
     <title>CHATHOUSE</title>
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
     <div class=header_nav>
         <h2 id="headrer_2"> Welcome {{username}} you are in *{{room}}* </h2>
         <div class="header_buttons">
-        <form action="{% url 'authentification:logout' %}" method="post">
-            {% csrf_token %}
-            <input class="logout_button" type="submit" value="Logout">
-        </form>
-        <form action="{% url 'authentification:home' %}" method="post">
-            {% csrf_token %}
-            <input class="changeroom_btn" type="submit" value="Change the room">
-        </form>
-    </div>
+            <!-- Ce formulaire envoie une demande de publication à la vue de déconnexion,
+                permettant à l'utilisateur de se déconnecter -->
+            <form action="{% url 'authentification:logout' %}" method="post">
+                {% csrf_token %}
+                <input class="logout_button" type="submit" value="Logout">
+            </form>
+            <!-- Ce formulaire envoie une demande de publication à la vue d'accueil, permettant à l'utilisateur de changer de chambre -->
+            <form action="{% url 'authentification:home' %}" method="post">
+                {% csrf_token %}
+                <input class="changeroom_btn" type="submit" value="Change the room">
+            </form>
+        </div>
     </div>
 </header>
 
@@ -32,17 +33,9 @@
 
 </div>
 
-
-
 <div class="container">
 
-    {% if user == room_details.creator %}
-    <form action="{% url 'authentification:delete_room' room_details.id %}" method="post">
-        {% csrf_token %}
-        <input class="delete_room_btn" type="submit" value="Delete Room">
-    </form>
-    {% endif %}
-
+    <!-- Ce formulaire permet d'envoyer le message au serveur -->
     <form id="send_message">
         {% csrf_token %}
         <input type="textarea" name="message" id="message" width="100px" required="required"/>
@@ -54,6 +47,8 @@
 </div>
 
 </body>
+
+<!-- Ce script effectue un appel AJAX pour obtenir de nouveaux messages toutes les secondes -->
 <script>
     $(document).ready(function(){
 
@@ -77,30 +72,32 @@
         },1000);
     })
 </script>
+<!-- Ce script effectue un appel ajax pour envoyer le message au serveur -->
 <script type="text/javascript">
-  $(document).on('submit','#send_message',function(e){
-    e.preventDefault();
+    $(document).on('submit','#send_message',function(e){
+        e.preventDefault();
 
-    $.ajax({
-      type:'POST',
-      url:'/send',
-      data:{
-          username:$('#username').val(),
-          room_id:$('#room_id').val(),
-          message:$('#message').val(),
+        $.ajax({
+            type:'POST',
+            url:'/send',
+            data:{
+                username:$('#username').val(),
+                room_id:$('#room_id').val(),
+                message:$('#message').val(),
 
-        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-      },
-      success: function(data){
-          document.getElementById("message").reset();
-      }
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                document.getElementById("message").reset();
+            }
+        });
     });
-  });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.css">
 <script>
+    //Initialiser le plugin emojionearea sur le champ de saisie de texte avec l'ID "message"
     $("#message").emojioneArea()
 </script>
 </html>

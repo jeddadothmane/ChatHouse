@@ -13,7 +13,7 @@
 
 <div align="center">
     {% if request.user.is_authenticated %}
-    <form id="post-form" method="POST" action="checkview">
+    <form id="post-form" method="POST" action="check_room">
         {% csrf_token %}
         <label id="room_name_txt">Room name</label>
         <input type="text" name="room_name" id="room_name" width="100px" required="required"/>
