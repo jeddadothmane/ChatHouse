@@ -43,7 +43,7 @@
     </form>
     {% endif %}
 
-    <form id="post-form">
+    <form id="send_message">
         {% csrf_token %}
         <input type="textarea" name="message" id="message" width="100px" required="required"/>
         <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
@@ -78,7 +78,7 @@
     })
 </script>
 <script type="text/javascript">
-  $(document).on('submit','#post-form',function(e){
+  $(document).on('submit','#send_message',function(e){
     e.preventDefault();
 
     $.ajax({
@@ -92,9 +92,9 @@
         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
       },
       success: function(data){
+          document.getElementById("message").reset();
       }
     });
-    document.getElementById("message-form").reset();
   });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
