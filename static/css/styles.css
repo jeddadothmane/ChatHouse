@@ -1,0 +1,105 @@
+#logo{
+
+}
+.header_buttons{
+    text-align: center;
+    background-color: #2596be;
+}
+.header_nav{
+    background-color: #2596be;
+    margin: 8px 0;
+}
+
+.logout_button, .changeroom_btn {
+    display: inline;
+    width: 20%;
+    background-color: #000000;
+    color: white;
+    padding: 14px 20px;
+    margin: 15px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+}
+
+h2{
+    color:white;
+    text-align: center;
+    font-family: montserrat;
+}
+.container {
+    border: 2px solid #000000;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.darker {
+    border-color: #000000;
+    background-color: #2596be;
+}
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+
+
+.time {
+    float: right;
+    color: #000000;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#submit_btn{
+    width: 20%;
+    background-color: #2596be;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #76b5c5;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}

@@ -1,191 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <div class=header_nav>
-    <h2 id="headrer_2"> Welcome {{username}} you are in ** {{room}} ** </h2>
-    <div class="button-container">
-    <form action="{% url 'authentification:logout' %}" method="post">         <!--bouton de deconnexion-->
-    {% csrf_token %}
-    <input id="logout_button" type="submit" value="Logout">                   
-    </form>
-    <form action="{% url 'authentification:home' %}" method="post">           <!--bouton du changement du salon-->
-    {% csrf_token %}
-    <input id="changeroom_btn" type="submit" value="Change the room">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.css">
+    <title>CHATHOUSE</title>
 
 
-  
-    {% if user.id == room_details.creator.id %}
-    <form method="post" action="{% url 'authentification:delete_room' room_id=room_id %}">
-      {% csrf_token %}
-      <input id="dl_room_btn" type="submit" value="Delete Room">
-    </form>
-    {% endif %}
-    </div>
-        <style>
-
-            .button-container{
-
-                text-align: center;
-                  background-color: #2596be;
-            }
-            .header_nav{
-                background-color: #2596be;
-                margin: 8px 0;
-                }
-            #logout_button, #changeroom_btn, #dl_room_btn, #ban_member_btn {
-            display: inline;
-            width: 20%;
-            background-color: #0d0d0b;
-            color: white;
-            padding: 14px 20px;
-            margin: 15px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            }
-        </style>
-    </div>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
 
-
-body {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 0 20px;
-  background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
-
-}
-
-h2{
-  color:white;
-   text-align: center;
-   font-family: montserrat;
-  }
-.container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 30px;
-  padding: 10px;
-  margin: 10px 0;
-}
-
-.darker {
-  border-color: #0d5973;
-  background-color: #2596be;
-}
-
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.container img {
-  float: left;
-  max-width: 60px;
-  width: 100%;
-  margin-right: 20px;
-  border-radius: 50%;
-}
-
-.container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
-
-.time-right {
-  float: right;
-  color: #000000;
-}
-
-.time-left {
-  float: left;
-  color: #000000;
-}
-</style>
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
-
+<header>
+    <div class=header_nav>
+        <h2 id="headrer_2"> Welcome {{username}} you are in *{{room}}* </h2>
+        <div class="header_buttons">
+        <form action="{% url 'authentification:logout' %}" method="post">
+            {% csrf_token %}
+            <input class="logout_button" type="submit" value="Logout">
+        </form>
+        <form action="{% url 'authentification:home' %}" method="post">
+            {% csrf_token %}
+            <input class="changeroom_btn" type="submit" value="Change the room">
+        </form>
+    </div>
+    </div>
+</header>
 
 <div id="display">
 
 </div>
 
-<script>
-$(document).ready(function(){
-
-setInterval(function(){
-    $.ajax({
-        type: 'GET',
-        url : "/getMessages/{{room}}/",
-        success: function(response){
-            console.log(response);
-            $("#display").empty();
-            for (var key in response.messages)
-            {
-                var temp="<div class='container darker'><b>"+response.messages[key].user+"</b>" +
-                    "<p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
-                $("#display").append(temp);
-            }
-        },
-        error: function(response){
-            alert('An error occured')
-        }
-    });
-},1000);
-})
-</script>
-
 
 
 <div class="container">
-    <style>
-    input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #000000;
-    border-radius: 4px;
-    box-sizing: border-box;
-    }
 
-    #submit_btn{
-    width: 20%;
-    background-color: #2596be;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    }
-
-    input[type=submit]:hover {
-    background-color: #76b5c5;
-    }
-
-    div {
-    border-radius: 15px;
-    background-color: #f2f2f2;
-    padding: 20px;
-    }
-    </style>
-
+    {% if user == room_details.creator %}
+    <form action="{% url 'authentification:delete_room' room_details.id %}" method="post">
+        {% csrf_token %}
+        <input class="delete_room_btn" type="submit" value="Delete Room">
+    </form>
+    {% endif %}
 
     <form id="post-form">
         {% csrf_token %}
-        <input type="hidden" name="username" id="username" value="{{username}}"/>
+        <input type="textarea" name="message" id="message" width="100px" required="required"/>
         <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
-        <input type="text" name="message" id="message" width="100px" />
         <input id="submit_btn" type="submit" value="Send">
+        <input type="hidden" name="username" id="username" value="{{username}}"/>
+
     </form>
 </div>
 
 </body>
+<script>
+    $(document).ready(function(){
 
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "/getMessages/{{room}}/",
+                success: function(response){
+                    console.log(response);
+                    $("#display").empty();
+                    for (var key in response.messages)
+                    {
+                        var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time'>"+response.messages[key].date+"</span></div>";
+                        $("#display").append(temp);
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },1000);
+    })
+</script>
 <script type="text/javascript">
   $(document).on('submit','#post-form',function(e){
     e.preventDefault();
@@ -197,14 +88,19 @@ setInterval(function(){
           username:$('#username').val(),
           room_id:$('#room_id').val(),
           message:$('#message').val(),
+
         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
       },
       success: function(data){
-         //alert(data)
       }
     });
-    document.getElementById('message').value = ''
+    document.getElementById("message-form").reset();
   });
 </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.css">
+<script>
+    $("#message").emojioneArea()
+</script>
 </html>
