@@ -17,7 +17,9 @@
     border-radius: 4px;
     cursor: pointer;
 }
-
+.logout_button:hover, .changeroom_btn:hover{
+    background-color: #76b5c5;
+}
 body {
     margin: 0 auto;
     max-width: 800px;
@@ -30,6 +32,7 @@ h2{
     text-align: center;
     font-family: montserrat;
 }
+
 .container {
     border: 2px solid #000000;
     background-color: #f1f1f1;
@@ -49,25 +52,12 @@ h2{
     display: table;
 }
 
-.container img {
-    float: left;
-    max-width: 60px;
-    width: 100%;
-    margin-right: 20px;
-    border-radius: 50%;
-}
-
-.container img.right {
-    float: right;
-    margin-left: 20px;
-    margin-right:0;
-}
 .time {
     float: right;
     color: #000000;
 }
 
-input[type=text], select {
+#message, select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -88,7 +78,7 @@ input[type=text], select {
     cursor: pointer;
 }
 
-input[type=submit]:hover {
+#submit_btn:hover {
     background-color: #76b5c5;
 }
 
