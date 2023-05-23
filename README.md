@@ -1,4 +1,4 @@
-**WELCOME TO THIS REPOSITORY**
+**WELCOME TO THIS REPOSITORY** \n
 This is a project of a chat app using Django framework and JavaScript.
 
 
